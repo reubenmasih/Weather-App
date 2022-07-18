@@ -1,58 +1,143 @@
-<div id="playground"></div>
-
-
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/00a7ab4cb7.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Weather App</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@4.0.2/dist/timeago.min.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="left">
+        <div class="container">
+          <div class="header">
+            <div class="date" id="date"></div>
+            <div class="searchBar">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input class="searchInput" id="searchInput" type="text" />
+              <button class="searchButton" onclick="getWeatherData()">
+                Search
+              </button>
+            </div>
+          </div>
+          <div class="todayOverview">
+            <div class="sectionTitle">Today Overview</div>
+            <div class="row">
+              <div class="overviewProp">
+                <div class="propIconContainer">
+                  <i class="propIcon fa-solid fa-wind"></i>
+                </div>
+                <div class="propValueContainer">
+                  <div class="propTitle">Wind</div>
+                  <div class="propMain">
+                    <span class="primaryData">
+                      <span class="propValue" id="wind"></span>
+                      <span class="propMetric">mph</span>
+                    </span>
+                    <span class="secondaryData" id="windDir"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="overviewProp">
+                <div class="propIconContainer">
+                  <i class="propIcon fa-solid fa-temperature-half"></i>
+                </div>
+                <div class="propValueContainer">
+                  <div class="propTitle">Lowest / Highest</div>
+                  <div class="propMain">
+                    <span class="primaryData">
+                      <span class="propValue" id="lowestToday"></span>
+                      <span class="propMetric">˚F</span>
+                      <span> / </span>
+                      <span class="propValue" id="highestToday"></span>
+                      <span class="propMetric">˚F</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="overviewProp">
+                <div class="propIconContainer">
+                  <i class="propIcon fa-solid fa-water"></i>
+                </div>
+                <div class="propValueContainer">
+                  <div class="propTitle">Pressure</div>
+                  <div class="propMain">
+                    <span class="primaryData">
+                      <span class="propValue" id="pressure"></span>
+                      <span class="propMetric">hpa</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
 
-<head>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-
-  <title>replit</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
-</head>
-
-
-<body>
-  
-  <h3>Lessons</h3>
-  <a href="dom/red-yellow-green/index.html">DOM - Red Yellow Green Squares</a>
-  </br>
-  <a href="api/dogRandom/index.html">API - Get Random Dog</a>
-  </br>
-  <a href="api/superHero/index.html">API - Get Super Heroes</a></br>
-  <a href="classes/banksClass/index.html">Classes - Bank with Deposit & Withdraw Methods</a>
-
-  <h3>Project Exercises</h3>
-  <a href='projects/stopwatch/exercise/index.html'>Stopwatch</a><br>
-  <a href='projects/rockpaperscissors/exercise/index.html'>Rock Paper Scissors</a><br>
-  <a href='projects/fightingGame/exercise/index.html'>Figthing Game</a> <br>
-  <a href='projects/tip-calculator/exercise/index.html'>Tip Calculator</a>
-  <br>
-  <a href='projects/weather-app/exercise/index.html'>Weather App</a><br>
-  <a href='projects/advanced-weather-app/exercise/index.html'>Advanced Weather App</a><br>
-  <a href='projects/create-netflix/exercise/index.html'>Create Netflix</a>
-
-  <h3>Project Solutions</h3>
-  <a href='projects/stopwatch/solution/index.html'>Stopwatch</a><br>
-  <a href='projects/rockpaperscissors/solution/index.html'>Rock Paper Scissors</a><br>
-  <a href='projects/fightingGame/solution/index.html'>Fighting Game</a></br>
-  <a href='projects/tip-calculator/solution/index.html'>Tip Calculator</a>
-  <br>
-  <a href='projects/weather-app/solution/index.html'> Weather App</a><br>
-  <a href='projects/advanced-weather-app/solution/index.html'>Advanced Weather App</a>
-  </br>
-  <a href='projects/create-netflix/solution/index.html'>Create Netflix</a>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prettier/2.6.2/standalone.js"></script>
-<script src="playground.js"></script>
-
-  <script src="yourPlayground.js"></script>
-  <script src="exercises/converthourstoseconds.js"></script>
-</body>
-
+              <div class="overviewProp">
+                <div class="propIconContainer">
+                  <i class="propIcon fa-solid fa-droplet"></i>
+                </div>
+                <div class="propValueContainer">
+                  <div class="propTitle">Humidity</div>
+                  <div class="propMain">
+                    <span class="primaryData">
+                      <span class="propValue" id="humidity"></span>
+                      <span class="propMetric">%</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tempForecast">
+            <div class="sectionTitle">Temperature Forecast</div>
+            <div id="chart" style="width: 100%; height: 400px"></div>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="rightContainer">
+          <div class="top">
+            <div class="location" id="location"></div>
+            <div class="time" id="time"></div>
+          </div>
+          <div class="currentWeather">
+            <div class="weatherIconContainer">
+              <img src="" alt="weather icon" id="weatherIcon" />
+            </div>
+            <div class="currentTemperatureValueContainer">
+              <span class="currentTemperatureValue" id="currentTemp"></span>
+              <span class="currentTemperatureMetric">˚F</span>
+            </div>
+            <div class="temperatureDescription" id="weatherDescription"></div>
+          </div>
+          <div class="sectionTitle">Sunrise & Sunset</div>
+          <div class="sunStageContainer">
+            <div class="sunIcon"><i class="fa-solid fa-sun"></i></div>
+            <div class="col">
+              <div class="sunStageTitle">Sunrise</div>
+              <div class="sunTime" id="sunrise"></div>
+            </div>
+            <div class="sunTimeRelative" id="sunriseRelative"></div>
+          </div>
+          <div class="sunStageContainer">
+            <div class="sunIcon"><i class="fa-solid fa-moon"></i></div>
+            <div class="col">
+              <div class="sunStageTitle">Sunset</div>
+              <div class="sunTime" id="sunset"></div>
+            </div>
+            <div class="sunTimeRelative" id="sunsetRelative"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
 </html>
+
